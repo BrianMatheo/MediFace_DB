@@ -1,0 +1,437 @@
+CREATE TABLE ASSIGNED 
+    ( 
+     Uid_Epe         INTEGER  NOT NULL , 
+     Uid_Mat         INTEGER  NOT NULL , 
+     Doctor_Findings TEXT 
+    ) 
+;
+
+ALTER TABLE ASSIGNED 
+    ADD CONSTRAINT ASD_PK PRIMARY KEY ( Uid_Mat, Uid_Epe ) ;
+
+CREATE TABLE COUNTRY 
+    ( 
+     Uid_Cty  VARCHAR (3)  NOT NULL , 
+     Cty_Name VARCHAR (30)  NOT NULL 
+    ) 
+;
+
+ALTER TABLE COUNTRY 
+    ADD CONSTRAINT CTY_PK PRIMARY KEY ( Uid_Cty ) ;
+
+CREATE TABLE DEPARTMENT 
+    ( 
+     Uid_Cty  VARCHAR (3)  NOT NULL , 
+     Uid_Dpt  VARCHAR (2)  NOT NULL , 
+     Dpt_Name VARCHAR (30)  NOT NULL 
+    ) 
+;
+
+ALTER TABLE DEPARTMENT 
+    ADD CONSTRAINT DPT_PK PRIMARY KEY ( Uid_Cty, Uid_Dpt ) ;
+
+CREATE TABLE DOCUMENT_TYPE 
+    ( 
+     Uid_Doc_Type  VARCHAR (2)  NOT NULL , 
+     Doc_Type_Name VARCHAR (4)  NOT NULL 
+    ) 
+;
+
+ALTER TABLE DOCUMENT_TYPE 
+    ADD CONSTRAINT DTE_PK PRIMARY KEY ( Uid_Doc_Type ) ;
+
+CREATE TABLE EMPLOYEE 
+    ( 
+     Uid_Epe          INTEGER  NOT NULL , 
+     Birthdate        DATE  NOT NULL , 
+     First_Name       VARCHAR (25)  NOT NULL , 
+     Middle_Name      VARCHAR (25) , 
+     Last_Name        VARCHAR (25)  NOT NULL , 
+     Second_Last_Name VARCHAR (25) , 
+     Email            VARCHAR (100) , 
+     Address          VARCHAR (75)  NOT NULL , 
+     Cellphone        VARCHAR (15)  NOT NULL , 
+     Password         TEXT  NOT NULL , 
+     Linked_Face_Id   VARCHAR (80) , 
+     Type_Employee    VARCHAR (20) , 
+     Specialization   TEXT , 
+     Active           CHAR (1) 
+    ) 
+;
+
+ALTER TABLE EMPLOYEE 
+    ADD CONSTRAINT EPE_PK PRIMARY KEY ( Uid_Epe ) ;
+
+CREATE TABLE ENTITY 
+    ( 
+     Uid_Eps  VARCHAR (10)  NOT NULL , 
+     Eps_Name VARCHAR (35)  NOT NULL 
+    ) 
+;
+
+ALTER TABLE ENTITY 
+    ADD CONSTRAINT ETY_PK PRIMARY KEY ( Uid_Eps ) ;
+
+CREATE TABLE ENTITY_HISTORY 
+    ( 
+     Uid_Eps     VARCHAR (10)  NOT NULL , 
+     Uid_Patient INTEGER  NOT NULL 
+    ) 
+;
+
+ALTER TABLE ENTITY_HISTORY 
+    ADD CONSTRAINT EHY_PK PRIMARY KEY ( Uid_Eps, Uid_Patient ) ;
+
+CREATE TABLE EXAM 
+    ( 
+     Uid_Exm   VARCHAR (3)  NOT NULL , 
+     Exam_Name VARCHAR (40) 
+    ) 
+;
+
+ALTER TABLE EXAM 
+    ADD CONSTRAINT EXM_PK PRIMARY KEY ( Uid_Exm ) ;
+
+CREATE TABLE EXAM_DETAIL 
+    ( 
+     Uid_Mat          INTEGER  NOT NULL , 
+     Uid_Epe          INTEGER  NOT NULL , 
+     Line_Item_Id     INTEGER  NOT NULL , 
+     Uid_Exm          VARCHAR (3)  NOT NULL , 
+     Exam_Quantity    INTEGER  NOT NULL , 
+     Exam_Description TEXT  NOT NULL 
+    ) 
+;
+
+ALTER TABLE EXAM_DETAIL 
+    ADD CONSTRAINT EXM_DTL_PK PRIMARY KEY ( Uid_Mat, Uid_Epe, Line_Item_Id ) ;
+
+CREATE TABLE LOGIN_EMPLOYEE 
+    ( 
+     Uid_Epe         INTEGER  NOT NULL , 
+     Uid_Consecutive INTEGER  NOT NULL , 
+     "Date"          DATE  NOT NULL , 
+     Success         CHAR (1)  NOT NULL 
+    ) 
+;
+
+CREATE TABLE LOGIN_PATIENT 
+    ( 
+     Uid_Ptt         INTEGER  NOT NULL , 
+     Uid_Consecutive INTEGER  NOT NULL , 
+     "Date"          DATE  NOT NULL , 
+     Success         CHAR (1)  NOT NULL 
+    ) 
+;
+
+CREATE TABLE MEDICAL_APPOINTMENT 
+    ( 
+     Uid_Ptt         INTEGER  NOT NULL , 
+     Uid_Mat         INTEGER  NOT NULL , 
+     Description     TEXT  NOT NULL , 
+     Attendance_Date DATE , 
+     Arrival_Time    DATE , 
+     Departure_Time  DATE , 
+     Did_Attend      CHAR (1) 
+    ) 
+;
+
+ALTER TABLE MEDICAL_APPOINTMENT 
+    ADD CONSTRAINT MAT_PK PRIMARY KEY ( Uid_Mat ) ;
+
+CREATE TABLE MEDICAL_ORDER 
+    ( 
+     Uid_Mat INTEGER  NOT NULL , 
+     Uid_Epe INTEGER  NOT NULL 
+    ) 
+;
+
+ALTER TABLE MEDICAL_ORDER 
+    ADD CONSTRAINT MDL_ODR_PK PRIMARY KEY ( Uid_Mat, Uid_Epe ) ;
+
+CREATE TABLE MEDICATION 
+    ( 
+     Uid_Mat              INTEGER  NOT NULL , 
+     Uid_Epe              INTEGER  NOT NULL , 
+     Line_Item_Id         INTEGER  NOT NULL , 
+     Uid_Mde              VARCHAR (10)  NOT NULL , 
+     Quantity             INTEGER  NOT NULL , 
+     Medicine_Description TEXT  NOT NULL 
+    ) 
+;
+
+ALTER TABLE MEDICATION 
+    ADD CONSTRAINT MDN_PK PRIMARY KEY ( Uid_Mat, Line_Item_Id, Uid_Epe ) ;
+
+CREATE TABLE MEDICINE 
+    ( 
+     Uid_Mde       VARCHAR (10)  NOT NULL , 
+     Medicine_Name VARCHAR (40) 
+    ) 
+;
+
+ALTER TABLE MEDICINE 
+    ADD CONSTRAINT MDE_PK PRIMARY KEY ( Uid_Mde ) ;
+
+CREATE TABLE MUNICIPALITY 
+    ( 
+     Uid_Cty  VARCHAR (3)  NOT NULL , 
+     Uid_Dpt  VARCHAR (2)  NOT NULL , 
+     Uid_Mny  VARCHAR (3)  NOT NULL , 
+     Mny_Name VARCHAR (30)  NOT NULL 
+    ) 
+;
+
+ALTER TABLE MUNICIPALITY 
+    ADD CONSTRAINT MNY_PK PRIMARY KEY ( Uid_Cty, Uid_Dpt, Uid_Mny ) ;
+
+CREATE TABLE PATIENT 
+    ( 
+     Uid_Doc_Type     VARCHAR (2)  NOT NULL , 
+     Uid_Ptt          INTEGER  NOT NULL , 
+     Birthdate        DATE  NOT NULL , 
+     First_Name       VARCHAR (25)  NOT NULL , 
+     Middle_Name      VARCHAR (25) , 
+     Last_Name        VARCHAR (25)  NOT NULL , 
+     Second_Last_Name VARCHAR (25) , 
+     Email            VARCHAR (100) , 
+     Address          VARCHAR (75)  NOT NULL , 
+     Cellphone        VARCHAR (15)  NOT NULL , 
+     Uid_Dpt          VARCHAR (2)  NOT NULL , 
+     Uid_Cty          VARCHAR (3)  NOT NULL , 
+     Uid_Mny          VARCHAR (3)  NOT NULL , 
+     Password         TEXT  NOT NULL , 
+     Linked_Face_Id   VARCHAR (80) , 
+     Uid_Dpt_C        VARCHAR (2)  NOT NULL , 
+     Uid_Cty_C        VARCHAR (3)  NOT NULL , 
+     Uid_Mny_C        VARCHAR (3)  NOT NULL 
+    ) 
+;
+
+ALTER TABLE PATIENT 
+    ADD CONSTRAINT PTT_PK PRIMARY KEY ( Uid_Ptt ) ;
+
+CREATE TABLE SHIFT 
+    ( 
+     Uid_Epe    INTEGER  NOT NULL , 
+     Uid_Shift  INTEGER  NOT NULL , 
+     Day        VARCHAR (30)  NOT NULL , 
+     Start_Time DATE  NOT NULL , 
+     End_Time   DATE  NOT NULL 
+    ) 
+;
+
+ALTER TABLE ASSIGNED 
+    ADD CONSTRAINT ASD_DOC_FK FOREIGN KEY 
+    ( 
+     Uid_Epe
+    ) 
+    REFERENCES EMPLOYEE 
+    ( 
+     Uid_Epe
+    ) 
+;
+
+ALTER TABLE ASSIGNED 
+    ADD CONSTRAINT ASD_MED_APT_FK FOREIGN KEY 
+    ( 
+     Uid_Mat
+    ) 
+    REFERENCES MEDICAL_APPOINTMENT 
+    ( 
+     Uid_Mat
+    ) 
+;
+
+ALTER TABLE DEPARTMENT 
+    ADD CONSTRAINT DPT_CTY_FK FOREIGN KEY 
+    ( 
+     Uid_Cty
+    ) 
+    REFERENCES COUNTRY 
+    ( 
+     Uid_Cty
+    ) 
+;
+
+ALTER TABLE ENTITY_HISTORY 
+    ADD CONSTRAINT ETY_FK FOREIGN KEY 
+    ( 
+     Uid_Eps
+    ) 
+    REFERENCES ENTITY 
+    ( 
+     Uid_Eps
+    ) 
+;
+
+ALTER TABLE EXAM_DETAIL 
+    ADD CONSTRAINT EXM_DTL_MDL_ODR_FK FOREIGN KEY 
+    ( 
+     Uid_Mat,
+     Uid_Epe
+    ) 
+    REFERENCES MEDICAL_ORDER 
+    ( 
+     Uid_Mat,
+     Uid_Epe
+    ) 
+    ON DELETE CASCADE 
+;
+
+ALTER TABLE EXAM_DETAIL 
+    ADD CONSTRAINT EXM_FK FOREIGN KEY 
+    ( 
+     Uid_Exm
+    ) 
+    REFERENCES EXAM 
+    ( 
+     Uid_Exm
+    ) 
+;
+
+ALTER TABLE LOGIN_EMPLOYEE 
+    ADD CONSTRAINT LGN_EPE_FK FOREIGN KEY 
+    ( 
+     Uid_Epe
+    ) 
+    REFERENCES EMPLOYEE 
+    ( 
+     Uid_Epe
+    ) 
+;
+
+ALTER TABLE LOGIN_PATIENT 
+    ADD CONSTRAINT LGN_PTT_FK FOREIGN KEY 
+    ( 
+     Uid_Ptt
+    ) 
+    REFERENCES PATIENT 
+    ( 
+     Uid_Ptt
+    ) 
+;
+
+ALTER TABLE MEDICATION 
+    ADD CONSTRAINT MDN_MDE_FK FOREIGN KEY 
+    ( 
+     Uid_Mde
+    ) 
+    REFERENCES MEDICINE 
+    ( 
+     Uid_Mde
+    ) 
+;
+
+ALTER TABLE MEDICATION 
+    ADD CONSTRAINT MDN_MDL_ODR_FK FOREIGN KEY 
+    ( 
+     Uid_Mat,
+     Uid_Epe
+    ) 
+    REFERENCES MEDICAL_ORDER 
+    ( 
+     Uid_Mat,
+     Uid_Epe
+    ) 
+;
+
+ALTER TABLE MEDICAL_ORDER 
+    ADD CONSTRAINT MED_ODR_ASD_FK FOREIGN KEY 
+    ( 
+     Uid_Mat,
+     Uid_Epe
+    ) 
+    REFERENCES ASSIGNED 
+    ( 
+     Uid_Mat,
+     Uid_Epe
+    ) 
+;
+
+ALTER TABLE MUNICIPALITY 
+    ADD CONSTRAINT MNY_DPT_FK FOREIGN KEY 
+    ( 
+     Uid_Cty,
+     Uid_Dpt
+    ) 
+    REFERENCES DEPARTMENT 
+    ( 
+     Uid_Cty,
+     Uid_Dpt
+    ) 
+;
+
+ALTER TABLE PATIENT 
+    ADD CONSTRAINT PTT_BIRTH FOREIGN KEY 
+    ( 
+     Uid_Cty,
+     Uid_Dpt,
+     Uid_Mny
+    ) 
+    REFERENCES MUNICIPALITY 
+    ( 
+     Uid_Cty,
+     Uid_Dpt,
+     Uid_Mny
+    ) 
+;
+
+ALTER TABLE PATIENT 
+    ADD CONSTRAINT PTT_CURRENT FOREIGN KEY 
+    ( 
+     Uid_Cty_C,
+     Uid_Dpt_C,
+     Uid_Mny_C
+    ) 
+    REFERENCES MUNICIPALITY 
+    ( 
+     Uid_Cty,
+     Uid_Dpt,
+     Uid_Mny
+    ) 
+;
+
+ALTER TABLE PATIENT 
+    ADD CONSTRAINT PTT_DTE_FK FOREIGN KEY 
+    ( 
+     Uid_Doc_Type
+    ) 
+    REFERENCES DOCUMENT_TYPE 
+    ( 
+     Uid_Doc_Type
+    ) 
+;
+
+ALTER TABLE ENTITY_HISTORY 
+    ADD CONSTRAINT PTT_FK FOREIGN KEY 
+    ( 
+     Uid_Patient
+    ) 
+    REFERENCES PATIENT 
+    ( 
+     Uid_Ptt
+    ) 
+;
+
+ALTER TABLE MEDICAL_APPOINTMENT 
+    ADD CONSTRAINT PTT_MAT_FK FOREIGN KEY 
+    ( 
+     Uid_Ptt
+    ) 
+    REFERENCES PATIENT 
+    ( 
+     Uid_Ptt
+    ) 
+;
+
+ALTER TABLE SHIFT 
+    ADD CONSTRAINT SHT_EPE_FK FOREIGN KEY 
+    ( 
+     Uid_Epe
+    ) 
+    REFERENCES EMPLOYEE 
+    ( 
+     Uid_Epe
+    ) 
+;

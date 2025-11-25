@@ -23,7 +23,7 @@ CREATE TABLE DEPARTMENT
     ( 
      Uid_Cty  VARCHAR (3)  NOT NULL , 
      Uid_Dpt  VARCHAR (2)  NOT NULL , 
-     Dpt_Name VARCHAR (30)  NOT NULL 
+     Dpt_Name VARCHAR (60)  NOT NULL 
     ) 
 ;
 
@@ -55,7 +55,7 @@ CREATE TABLE EMPLOYEE
      Linked_Face_Id   VARCHAR (80) , 
      Type_Employee    VARCHAR (20) , 
      Specialization   TEXT , 
-     Active           CHAR (1) 
+     Active           BOOLEAN 
     ) 
 ;
 
@@ -111,7 +111,7 @@ CREATE TABLE LOGIN_EMPLOYEE
      Uid_Epe         INTEGER  NOT NULL , 
      Uid_Consecutive INTEGER  NOT NULL , 
      "Date"          DATE  NOT NULL , 
-     Success         CHAR (1)  NOT NULL 
+     Success         BOOLEAN  NOT NULL 
     ) 
 ;
 
@@ -120,7 +120,7 @@ CREATE TABLE LOGIN_PATIENT
      Uid_Ptt         INTEGER  NOT NULL , 
      Uid_Consecutive INTEGER  NOT NULL , 
      "Date"          DATE  NOT NULL , 
-     Success         CHAR (1)  NOT NULL 
+     Success         BOOLEAN  NOT NULL  
     ) 
 ;
 
@@ -130,9 +130,9 @@ CREATE TABLE MEDICAL_APPOINTMENT
      Uid_Mat         INTEGER  NOT NULL , 
      Description     TEXT  NOT NULL , 
      Attendance_Date DATE , 
-     Arrival_Time    DATE , 
-     Departure_Time  DATE , 
-     Did_Attend      CHAR (1) 
+     Arrival_Time    TIME , 
+     Departure_Time  TIME , 
+     Did_Attend      BOOLEAN 
     ) 
 ;
 
@@ -178,7 +178,7 @@ CREATE TABLE MUNICIPALITY
      Uid_Cty  VARCHAR (3)  NOT NULL , 
      Uid_Dpt  VARCHAR (2)  NOT NULL , 
      Uid_Mny  VARCHAR (3)  NOT NULL , 
-     Mny_Name VARCHAR (30)  NOT NULL 
+     Mny_Name VARCHAR (60)  NOT NULL 
     ) 
 ;
 
@@ -216,8 +216,8 @@ CREATE TABLE SHIFT
      Uid_Epe    INTEGER  NOT NULL , 
      Uid_Shift  INTEGER  NOT NULL , 
      Day        VARCHAR (30)  NOT NULL , 
-     Start_Time DATE  NOT NULL , 
-     End_Time   DATE  NOT NULL 
+     Start_Time TIME  NOT NULL , 
+     End_Time   TIME  NOT NULL 
     ) 
 ;
 
